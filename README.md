@@ -8,13 +8,13 @@ Example Python projects are in the Python_Examples repository.
 
 Permutations.py - Permutes a word of your choice and shows you all of the permutations. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did as practice.
 
-
+#
 
 Hangman.py - Lets you play hangman! You need to have the words.txt file in the same directory for it to work. It gives you six guesses initially. Is you guess a letter in the word you retain all guesses. If you guess a consonant incorrectly, you lose one guess. If you guess a vowel incorrectly (aeiou), you lose two guesses. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did as practice.
 
 words.txt - words for the Hangman game. Must be in the same directory for Hangman.py to work.
 
-
+#
 
 Optimization_s1_s2_q_Partial_Data.py is an optimization script that was used for validation of the optimization routine in Excel used in my dissertation project. This script is titled, "Partial_Data" because this particular upload to github provides a sample of the experimental data to serve as an example. The script finds parameter values s1, s2, and q by matching the amplitude (A), period (P) and normalized center of mass (ZCOM) in our inverted pendulum model to experimental values from cats walking on split-belt treadmills in different speed conditions. 
 
