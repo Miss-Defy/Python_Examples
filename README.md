@@ -5,6 +5,7 @@ Example Python projects are in the Python_Examples repository.
 
 ###############################################
 
+#
 
 Permutations.py - Permutes a word of your choice and shows you all of the permutations. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did as practice.
 
