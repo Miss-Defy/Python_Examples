@@ -7,11 +7,11 @@ Example Python projects are in the Python_Examples repository.
 
 #
 
-Permutations.py - Permutes a word of your choice and shows you all of the permutations. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did as practice.
+Permutations.py - Permutes a word of your choice and shows you all of the permutations. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did for fun.
 
 #
 
-Hangman.py - Lets you play hangman! You need to have the words.txt file in the same directory for it to work. It gives you six guesses initially. Is you guess a letter in the word you retain all guesses. If you guess a consonant incorrectly, you lose one guess. If you guess a vowel incorrectly (aeiou), you lose two guesses. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did as practice.
+Hangman.py - Lets you play hangman! You need to have the words.txt file in the same directory for it to work. It gives you six guesses initially. Is you guess a letter in the word you retain all guesses. If you guess a consonant incorrectly, you lose one guess. If you guess a vowel incorrectly (aeiou), you lose two guesses. This is a problem from the MIT Introduction to Computer Science and Programming in Python Course I did for fun.
 
 words.txt - words for the Hangman game. Must be in the same directory for Hangman.py to work.
 
