@@ -21,7 +21,7 @@ words.txt - words for the Hangman game. Must be in the same directory for Hangma
 
 #
 
-Text_Minin_Example.py - NLTK used for tokenization, stemming, lemmatization examples. If you run this it will spit ouf a bunch of words. Please see the file.
+Text_Mining_Example.py - NLTK used for tokenization, stemming, lemmatization examples. If you run this it will spit ouf a bunch of words. Please see the file.
 
 #
 
