@@ -25,7 +25,7 @@ Text_Mining_Example.py - NLTK used for tokenization, stemming, lemmatization exa
 
 #
 
-Time_Series_Analysis_Example.py - Time-series analysis of a Bitcoin dataset found on Kaggle. A moving average and confidence intervals are found and plotted. Anomalies are defined as outliers by Tukey's Method and are removed from the dataset. Please uncomment figures to produce plots.
+Time_Series_Analysis_Example.py - Time-series analysis of a Bitcoin dataset found on Kaggle. A rolling average and confidence intervals are found and plotted. Anomalies are defined as outliers by Tukey's Method and are removed from the dataset. Please uncomment figures to produce plots.
 
 #
 
