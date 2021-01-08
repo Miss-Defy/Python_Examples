@@ -12,13 +12,15 @@ from sklearn.metrics import mean_squared_error
 from math import sqrt
 import statsmodels.api as sm
 from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
+from statsmodels.tsa.holtwinters import ExponentialSmoothing as HWES
+
 
 
 
 ####################################################################################
 # Import and Process Data
 
-bit_Nans = pd.read_csv('bitstamp_Kaggle_2012-01-01_to_2020-09-14.csv', index_col=['Timestamp'], parse_dates=['Timestamp'])
+bit_Nans = pd.read_csv('bitstamp_Kaggle_2012-01-01_to_2020-09-14.csv',infer_datetime_format=True, index_col=['Timestamp'], parse_dates=['Timestamp'])
 
 def clean_dataset(df):
     df.dropna(inplace=True)
@@ -37,7 +39,7 @@ bit_time=bit
 bit_time.reset_index(inplace=True)
 bit_time['Timestamp'] = pd.to_datetime(bit['Timestamp'],unit='s')
 
-
+bit_time.index.freq = 'MS'
 
 # Convert Index to Timestamp
 # bit_time=bit
@@ -45,26 +47,6 @@ bit_time['Timestamp'] = pd.to_datetime(bit['Timestamp'],unit='s')
 
 
 ##########################
-
-
-bit_min=bit["Timestamp"].dt.minute
-bit_min_np=bit_min.to_numpy()
-
-bit_min_sum=np.zeros(bit_len)
-bit_min_sum[0]=bit_min_np[0]
-
-for i in range(1,bit_len):
-    bit_min_sum[i]=bit_min_sum[i-1]+bit_min_np[i]
-    
-bit_min_sum_df = pd.DataFrame(bit_min_sum)
-
-bit_min_df=bit
-bit_min_df["Timestamp_min"]=bit_min_sum_df
-
-#########################
-
-
-
 
 # Plot of Weighted Price of Bitcoin
 #
@@ -189,11 +171,51 @@ print("exponential smoothing rms:", exp_smoo_rms)
 # plt.legend(loc='best')
 # plt.show()
  
- 
- 
 
 
 
 sm.tsa.seasonal_decompose(np.asarray(train.Weighted_Price), period=100).plot()
+# sm.tsa.seasonal_decompose(train.Weighted_Price, period=100).plot()
+# result = sm.tsa.stattools.adfuller(train.Weighted_Price)
+plt.show()
+
+
+
+
+# Build Holt-Winters Model and Forecast
+
+holt_train=bit_time.iloc[:train_len]
+holt_test=bit_time.iloc[train_len:]
+model = HWES(np.asarray(holt_train.Weighted_Price), seasonal_periods=12, trend='add', seasonal='mul')
+fitted = model.fit()
+print(fitted.summary())
+Forecast_steps=10000
+bit_forecast = fitted.forecast(steps=Forecast_steps)
+
+holt_rms = sqrt(mean_squared_error(holt_test.Weighted_Price, bit_forecast))
+print("holt-winters rms:", holt_rms)
+
+
+
+# Plot of Bitcoin Forecast
+
+fig = plt.figure()
+fig.suptitle('Bitcoin Forecast')
+past = plt.plot(holt_train.Timestamp, holt_train.Weighted_Price, 'b.-', label='Bitcoin History')
+future = plt.plot(holt_test.Timestamp, holt_test.Weighted_Price, 'r.-', label='Bitcoin Actual')
+predicted_future = plt.plot(holt_test.Timestamp[:Forecast_steps], bit_forecast, 'g.-', label='Bitcoin Forecast')
 # plt.show()
 
+
+
+# Zoomed-in plot of Bitcoin Forecast
+
+len_train=holt_train.Timestamp.shape[0]
+len_test=holt_test.Timestamp.shape[0]
+
+fig = plt.figure()
+fig.suptitle('Bitcoin Forecast')
+past = plt.plot(holt_train.Timestamp[len_train-50000:len_train], holt_train.Weighted_Price[len_train-50000:len_train], 'b.-', label='Bitcoin History')
+future = plt.plot(holt_test.Timestamp[0:50000], holt_test.Weighted_Price[0:50000], 'r.-', label='Bitcoin Actual')
+predicted_future = plt.plot(holt_test.Timestamp[:Forecast_steps], bit_forecast, 'g.-', label='Bitcoin Forecast')
+# plt.show()
